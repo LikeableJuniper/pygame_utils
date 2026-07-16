@@ -6,7 +6,7 @@ from pygame_utils_likeablejuniper.core.element import GUIElement
 
 class Container(GUIElement):
     def __init__(self, elements: list[GUIElement] | None = None):
-        self.elements = elements if elements else []
+        self.elements = elements or []
     
     def update(self, events: Iterable[pg.Event]):
         for element in self.elements:
