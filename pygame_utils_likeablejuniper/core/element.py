@@ -3,7 +3,7 @@ from typing import Iterable
 import pygame as pg
 
 class GUIElement:
-    def __init__(self, rect):
+    def __init__(self, rect: list[float]):
         self.rect = rect
         self.enabled = True
         self.visible = True

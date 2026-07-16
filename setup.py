@@ -7,8 +7,9 @@ setuptools.setup(
     url="https://github.com/LikeableJuniper/pygame_utils",
     author="LikeableJuniper",
     license="MIT License",
-    packages=["pygame_utils_likeablejuniper"],
+    packages=["pygame_utils_likeablejuniper", "pygame_utils_likeablejuniper/core"],
     install_requires=[
-        "pygame-ce"
+        "pygame-ce",
+        "vectors_likeablejuniper"
     ]
 )
