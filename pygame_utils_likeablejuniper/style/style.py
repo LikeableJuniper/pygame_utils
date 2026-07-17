@@ -11,7 +11,7 @@ P = TypeVar("P", bound=Style)
 C = TypeVar("C", bound=Style)
 
 def merge_styles(preferred: P | None, base: C) -> C:
-    if P is None:
+    if preferred is None:
         return base
     
     values = {}
