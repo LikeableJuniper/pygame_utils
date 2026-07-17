@@ -53,16 +53,6 @@ class Label(GUIElement[LabelStyle, CompleteLabelStyle]):
 
     def set_text(self, text: str):
         self.text = text
-    
-    def update_style(self, style: LabelStyle | CompleteLabelStyle):
-        """
-        Updates the style of this Label instance.<br>
-        You may leave out fields of the style object, this means that those fields will not be updated as a result of this call.<br>
-        If you want to revert the styling to the default, use<br>
-        `label.update_style(Label.default_style)`
-        """
-        self.style = merge_styles(style, self.style)
-        super()._rerender()
 
 class StaticLabel(Label):
     """
