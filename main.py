@@ -1,21 +1,26 @@
 import pygame as pg
-from pygame_utils_likeablejuniper import Container, Label
-from pygame_utils_likeablejuniper.component.label import LabelStyle, StaticLabel
+from pygame_utils_likeablejuniper import Container
+from pygame_utils_likeablejuniper import LabelStyle, StaticLabel
+from pygame_utils_likeablejuniper import ContainerStyle
+from pygame_utils_likeablejuniper import Border
+
 
 pg.init()
 pg.font.init()
 screen = pg.display.set_mode((800, 800))
 clock = pg.time.Clock()
 
-test_container = Container()
+container_style = ContainerStyle(border=Border(5, (0, 255, 0)))
+test_container = Container([10, 10, 780, 780], style=container_style)
 custom_style = LabelStyle(background_color=(255, 0, 0))
-label = StaticLabel([10, 10, 200, 50], "Hello", custom_style)
+label = StaticLabel([20, 20, 200, 50], "Hello", custom_style)
 test_container.add(label)
-test_container.add(Label([220, 10, 200, 50], "Other Hello"))
+test_container.add(StaticLabel([240, 20, 200, 50], "Other Hello"))
 
 running = True
 
 frame_counter = 0
+changes = 0
 
 while running:
     screen.fill((100, 100, 100))
@@ -28,11 +33,15 @@ while running:
 
     frame_counter += 1
 
-    if frame_counter >= 120:
+    if frame_counter >= 60:
         frame_counter = 0
+        changes += 1
+        changes %= 3
         # runtime value and style changes
         label.set_text(label.text + "o")
-        label.update_style(LabelStyle(background_color=(0, 255, 0)))
+        new_color = [0, 0, 0]
+        new_color[changes] = 255
+        label.update_style(LabelStyle(background_color=new_color))
 
     for event in pg.event.get():
         if event.type == pg.QUIT:

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Iterable
+from typing import Iterable, cast
 from vectors_likeablejuniper import Vector
 import pygame as pg
 
@@ -35,16 +35,15 @@ DEFAULT_LABEL_STYLE = CompleteLabelStyle(background_color=(255, 255, 200), text_
 class Label(GUIElement):
     default_style: CompleteLabelStyle = DEFAULT_LABEL_STYLE
     def __init__(self, rect: list[float], text: str, style: LabelStyle | None = None):
-        super().__init__(rect)
-
-        self.style: CompleteLabelStyle = merge_styles(style, Label.default_style)
+        super().__init__(rect, style, Label.default_style)
+        self.style = cast(CompleteLabelStyle, self.style)
         self.text = text
     
     def update(self, events: Iterable[pg.Event]):
         raise NotImplementedError()
 
     def draw(self, screen: pg.Surface):
-        pg.draw.rect(screen, self.style.background_color, self.rect)
+        super().draw(screen)
 
         text_surface = self.style.font.render(self.text, True, self.style.text_color)
         topLeft = Vector(self.rect[:2])
