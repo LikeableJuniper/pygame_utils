@@ -38,7 +38,8 @@ while running:
         changes += 1
         changes %= 3
         # runtime value and style changes
-        label.set_text(label.text + "o")
+        if len(label.text) < 10:
+            label.set_text(label.text + "o")
         new_color = [0, 0, 0]
         new_color[changes] = 255
         label.update_style(LabelStyle(background_color=new_color))
