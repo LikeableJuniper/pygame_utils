@@ -26,7 +26,7 @@ class CompleteLabelStyle(Style):
     
     def apply(self, target: Label | None = None):
         if target:
-            target.style = self
+            target.update_style(self)
         else:
             Label.default_style = self
 
@@ -55,7 +55,7 @@ class Label(GUIElement):
     def set_text(self, text: str):
         self.text = text
     
-    def update_style(self, style: LabelStyle):
+    def update_style(self, style: LabelStyle | CompleteLabelStyle):
         """
         Updates the style of this Label instance.<br>
         You may leave out fields of the style object, this means that those fields will not be updated as a result of this call.<br>
@@ -81,7 +81,7 @@ class StaticLabel(Label):
         super().set_text(text)
         self.__rerender()
     
-    def update_style(self, style: LabelStyle):
+    def update_style(self, style: LabelStyle | CompleteLabelStyle):
         super().update_style(style)
         self.__rerender()
     
