@@ -1,11 +1,13 @@
-from typing import Iterable, TypeVar
+from typing import Generic, Iterable, TypeVar
 
 import pygame as pg
 
 from pygame_utils_likeablejuniper.style.style import Style, merge_styles
 
-class GUIElement:
-    def __init__(self, rect: list[float], style: Style | None, base_style: Style):
+S = TypeVar("S", bound=Style)
+C = TypeVar("C", bound=Style)
+class GUIElement(Generic[S, C]):
+    def __init__(self, rect: list[float], style: S | None, base_style: C):
         self.rect = rect
         self.style = merge_styles(style, base_style)
         self._rerender()
@@ -18,6 +20,10 @@ class GUIElement:
     def draw(self, screen: pg.Surface):
         self.__draw_background(screen)
         self.__draw_border(screen)
+    
+    def update_style(self, style: S | C):
+        self.style = merge_styles(style, self.style)
+        self._rerender()
     
     def _rerender(self):
         if self.__has_background():

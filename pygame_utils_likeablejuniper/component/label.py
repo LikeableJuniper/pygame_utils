@@ -32,12 +32,11 @@ class CompleteLabelStyle(Style):
 
 DEFAULT_LABEL_STYLE = CompleteLabelStyle(background_color=(255, 255, 200), text_color=(0, 0, 0), font=pg.font.SysFont("Mono", 20))
 
-class Label(GUIElement):
+class Label(GUIElement[LabelStyle, CompleteLabelStyle]):
     default_style: CompleteLabelStyle = DEFAULT_LABEL_STYLE
     def __init__(self, rect: list[float], text: str, style: LabelStyle | None = None):
-        super().__init__(rect, style, Label.default_style)
-        self.style = cast(CompleteLabelStyle, self.style)
         self.text = text
+        super().__init__(rect, style, Label.default_style)
     
     def update(self, events: Iterable[pg.Event]):
         raise NotImplementedError()
@@ -62,6 +61,7 @@ class Label(GUIElement):
         `label.update_style(Label.default_style)`
         """
         self.style = merge_styles(style, self.style)
+        super()._rerender()
 
 class StaticLabel(Label):
     """
@@ -69,8 +69,9 @@ class StaticLabel(Label):
     It will only rerender text and recalculate positioning on __init__ and on set_text and set_style<br>
     """
     def __init__(self, rect: list[float], text: str, style: LabelStyle | None = None):
+        print(StaticLabel.__mro__)
         super().__init__(rect, text, style)
-        self.__rerender()
+        self._rerender()
     
     def draw(self, screen: pg.Surface):
         pg.draw.rect(screen, self.style.background_color, self.rect)
@@ -78,18 +79,19 @@ class StaticLabel(Label):
     
     def set_text(self, text: str):
         super().set_text(text)
-        self.__rerender()
+        self._rerender()
     
     def update_style(self, style: LabelStyle | CompleteLabelStyle):
         super().update_style(style)
-        self.__rerender()
+        self._rerender()
     
-    def __rerender(self):
+    def _rerender(self):
         """
         Recalculates all drawing-relevant data, including rerendering font and text.<br>
         Calling this function manually is usually not required nor is it recommended, as calling it too much removes the benefit you get from using StaticLabel over Label.<br>
         If you need to call this method manually for changes to take place, you aren't using the api correctly.<br>
         """
+        super()._rerender()
         topLeft = Vector(self.rect[:2])
         widthHeight = Vector(self.rect[2:])
         self.text_surface = self.style.font.render(self.text, True, self.style.text_color)
