@@ -22,10 +22,9 @@ class Border:
         
         pg.draw.rect(screen, self.border_color, rect, self.border_width)
 
-P = TypeVar("P", bound=Style)
 C = TypeVar("C", bound=Style)
 
-def merge_styles(preferred: P | None, base: C) -> C:
+def merge_styles(preferred: Style | None, base: C) -> C:
     if preferred is None:
         return base
     
