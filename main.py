@@ -3,6 +3,7 @@ from pygame_utils_likeablejuniper import Container
 from pygame_utils_likeablejuniper import LabelStyle, StaticLabel
 from pygame_utils_likeablejuniper import ContainerStyle
 from pygame_utils_likeablejuniper import Border
+from pygame_utils_likeablejuniper import Button, ButtonStyle
 
 
 pg.init()
@@ -11,11 +12,14 @@ screen = pg.display.set_mode((800, 800))
 clock = pg.time.Clock()
 
 container_style = ContainerStyle(border=Border(5, (0, 255, 0)))
-test_container = Container([10, 10, 780, 780], style=container_style)
+container = Container([10, 10, 780, 780], style=container_style)
 custom_style = LabelStyle(background_color=(255, 0, 0))
 label = StaticLabel([20, 20, 200, 50], "Hello", custom_style)
-test_container.add(label)
-test_container.add(StaticLabel([240, 20, 200, 50], "Other Hello"))
+container.add(label)
+container.add(StaticLabel([240, 20, 200, 50], "Other Hello"))
+
+button = Button([20, 100, 200, 50], "Click me")
+container.add(button)
 
 running = True
 
@@ -25,7 +29,8 @@ changes = 0
 while running:
     screen.fill((100, 100, 100))
 
-    test_container.draw(screen)
+    container.draw(screen)
+    button.update(pg.event.get())
 
     pg.display.flip()
 
