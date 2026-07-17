@@ -5,7 +5,6 @@ from pygame_utils_likeablejuniper.component.label import LabelStyle, StaticLabel
 pg.init()
 pg.font.init()
 screen = pg.display.set_mode((800, 800))
-main_font = pg.font.SysFont("Mono", 20)
 clock = pg.time.Clock()
 
 test_container = Container()
@@ -33,7 +32,7 @@ while running:
         frame_counter = 0
         # runtime value and style changes
         label.set_text(label.text + "o")
-        label.set_style(LabelStyle(background_color=(0, 255, 0)))
+        label.update_style(LabelStyle(background_color=(0, 255, 0)))
 
     for event in pg.event.get():
         if event.type == pg.QUIT:

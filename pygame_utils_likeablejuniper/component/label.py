@@ -55,13 +55,19 @@ class Label(GUIElement):
     def set_text(self, text: str):
         self.text = text
     
-    def set_style(self, style: LabelStyle):
+    def update_style(self, style: LabelStyle):
+        """
+        Updates the style of this Label instance.<br>
+        You may leave out fields of the style object, this means that those fields will not be updated as a result of this call.<br>
+        If you want to revert the styling to the default, use<br>
+        `label.update_style(Label.default_style)`
+        """
         self.style = merge_styles(style, self.style)
 
 class StaticLabel(Label):
     """
-    If you know a labels value is not going to change often, use this class for improved performance.
-    It will only rerender text and recalculate positioning on __init__ and on set_text and set_style
+    If you know a labels value is not going to change often, use this class for improved performance.<br>
+    It will only rerender text and recalculate positioning on __init__ and on set_text and set_style<br>
     """
     def __init__(self, rect: list[float], text: str, style: LabelStyle | None = None):
         super().__init__(rect, text, style)
@@ -75,15 +81,15 @@ class StaticLabel(Label):
         super().set_text(text)
         self.__rerender()
     
-    def set_style(self, style: LabelStyle):
-        super().set_style(style)
+    def update_style(self, style: LabelStyle):
+        super().update_style(style)
         self.__rerender()
     
     def __rerender(self):
         """
-        Recalculates all drawing-relevant data, including rerendering font and text.
-        Calling this function manually is usually not required nor is it recommended, as calling it too much removes the benefit you get from using StaticLabel over Label.
-        If you need to call this method manually for changes to take place, you aren't using the api correctly.
+        Recalculates all drawing-relevant data, including rerendering font and text.<br>
+        Calling this function manually is usually not required nor is it recommended, as calling it too much removes the benefit you get from using StaticLabel over Label.<br>
+        If you need to call this method manually for changes to take place, you aren't using the api correctly.<br>
         """
         topLeft = Vector(self.rect[:2])
         widthHeight = Vector(self.rect[2:])
