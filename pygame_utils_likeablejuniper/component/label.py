@@ -35,6 +35,7 @@ DEFAULT_LABEL_STYLE = CompleteLabelStyle(background_color=(255, 255, 200), text_
 class Label(GUIElement[LabelStyle, CompleteLabelStyle]):
     default_style: CompleteLabelStyle = DEFAULT_LABEL_STYLE
     def __init__(self, rect: list[float], text: str, style: LabelStyle | None = None):
+        # self.text assignment must be before super().__init__() because StaticLabel overrides _rerender() and uses self.text in it, which is called in GUIElement.__init__()
         self.text = text
         super().__init__(rect, style, Label.default_style)
     
@@ -69,9 +70,8 @@ class StaticLabel(Label):
     It will only rerender text and recalculate positioning on __init__ and on set_text and set_style<br>
     """
     def __init__(self, rect: list[float], text: str, style: LabelStyle | None = None):
-        print(StaticLabel.__mro__)
         super().__init__(rect, text, style)
-        self._rerender()
+        # no need to call self._rerender() here, as it is already called in the super().__init__() call in GUIElement.__init__()
     
     def draw(self, screen: pg.Surface):
         pg.draw.rect(screen, self.style.background_color, self.rect)
