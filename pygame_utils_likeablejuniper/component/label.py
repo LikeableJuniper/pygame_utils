@@ -76,11 +76,6 @@ class StaticLabel(Label):
         self._rerender()
     
     def _rerender(self):
-        """
-        Recalculates all drawing-relevant data, including rerendering font and text.<br>
-        Calling this function manually is usually not required nor is it recommended, as calling it too much removes the benefit you get from using StaticLabel over Label.<br>
-        If you need to call this method manually for changes to take place, you aren't using the api correctly.<br>
-        """
         super()._rerender()
         topLeft = Vector(self.rect[:2])
         widthHeight = Vector(self.rect[2:])

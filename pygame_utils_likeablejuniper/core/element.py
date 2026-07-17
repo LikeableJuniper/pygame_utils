@@ -26,6 +26,11 @@ class GUIElement(Generic[S, C]):
         self._rerender()
     
     def _rerender(self):
+        """
+        Recalculates all drawing-relevant data, including rerendering font and text.<br>
+        Calling this function manually is usually not required nor is it recommended.<br>
+        If you need to call this method manually for changes to take place, you aren't using the api correctly.<br>
+        """
         if self.__has_background():
             self.background_surface = pg.Surface(self.rect[2:])
             if len(self.style.background_color) >= 4: # pyright: ignore[reportAttributeAccessIssue]
