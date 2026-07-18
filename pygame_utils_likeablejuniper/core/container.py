@@ -38,6 +38,7 @@ class Container(GUIElement):
         self.elements = elements or []
     
     def update(self, events: Iterable[pg.Event]):
+        super().update(events)
         for element in self.elements:
             if element.enabled:
                 element.update(events)

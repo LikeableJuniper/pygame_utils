@@ -3,6 +3,7 @@ from typing import Callable, Generic, Iterable, Self, TypeVar
 import pygame as pg
 
 from pygame_utils_likeablejuniper.style.style import Style, merge_styles
+from vectors_likeablejuniper import Vector
 
 E = TypeVar("E", bound='GUIElement')
 class ConditionalStyle(Generic[E]):
@@ -21,9 +22,21 @@ class GUIElement(Generic[S, C]):
         self._rerender()
         self.enabled = True
         self.visible = True
+
+        # even though the mouse position is checked every time update() is called, this variable is used to prevent unnecessary style updates and rerenders
+        self.hovered = False
     
     def update(self, events: Iterable[pg.Event]):
-        raise NotImplementedError()
+        mouse_pos = Vector(pg.mouse.get_pos())
+        top_left = Vector(self.rect[:2])
+        width_height = Vector(self.rect[2:])
+        in_rect = top_left < mouse_pos < top_left + width_height
+        if in_rect and (not self.hovered):
+            self.hovered = True
+            self._rerender()
+        elif not in_rect and self.hovered:
+            self.hovered = False
+            self._rerender()
     
     def draw(self, screen: pg.Surface):
         self.__draw_background(screen)

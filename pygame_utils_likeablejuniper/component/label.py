@@ -40,6 +40,7 @@ class Label(GUIElement[LabelStyle, CompleteLabelStyle]):
         super().__init__(rect, style, Label.default_style)
     
     def update(self, events: Iterable[pg.Event]):
+        super().update(events)
         raise NotImplementedError()
 
     def draw(self, screen: pg.Surface):
