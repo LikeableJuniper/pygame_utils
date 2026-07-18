@@ -4,7 +4,7 @@ import pygame as pg
 from vectors_likeablejuniper import Vector
 
 from pygame_utils_likeablejuniper.core.element import GUIElement
-from pygame_utils_likeablejuniper.style.style import Style, merge_styles
+from pygame_utils_likeablejuniper.style.style import Border, Style, merge_styles
 
 
 @dataclass
@@ -13,6 +13,7 @@ class ButtonStyle(Style):
     A style property with value None indicates that it should just be the default value.
     """
     background_color: pg.typing.ColorLike | None = None
+    border: Border | None = None
     text_color: pg.typing.ColorLike | None = None
     font: pg.font.Font | None = None
 
@@ -22,6 +23,7 @@ class CompleteButtonStyle(Style):
     Always needs all fields to be non-None. Is used for defining fallback values and the result of merge_styles()
     """
     background_color: pg.typing.ColorLike
+    border: Border
     text_color: pg.typing.ColorLike
     font: pg.font.Font
     
@@ -31,8 +33,8 @@ class CompleteButtonStyle(Style):
         else:
             Button.default_style = self
 
-DEFAULT_BUTTON_STYLE = CompleteButtonStyle(background_color=(161, 253, 255), text_color=(0, 0, 0), font=pg.font.SysFont("Mono", 20))
-DEFAULT_BUTTON_HOVER_STYLE = CompleteButtonStyle(background_color=(82, 168, 191), text_color=(0, 0, 0), font=pg.font.SysFont("Mono", 20))
+DEFAULT_BUTTON_STYLE = CompleteButtonStyle(background_color=(161, 253, 255), border=Border(0, (0, 0, 0)), text_color=(0, 0, 0), font=pg.font.SysFont("Mono", 20))
+DEFAULT_BUTTON_HOVER_STYLE = CompleteButtonStyle(background_color=(82, 168, 191), border=Border(0, (0, 0, 0)), text_color=(0, 0, 0), font=pg.font.SysFont("Mono", 20))
 
 class Button(GUIElement[ButtonStyle, CompleteButtonStyle]):
     default_style: CompleteButtonStyle = DEFAULT_BUTTON_STYLE
