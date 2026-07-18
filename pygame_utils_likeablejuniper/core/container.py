@@ -22,7 +22,7 @@ class CompleteContainerStyle(Style):
     background_color: pg.typing.ColorLike
     border: Border
     
-    def apply(self, target: Container | None = None):
+    def apply(self, target: 'Container | None' = None):
         if target:
             target.style = self
         else:

@@ -24,7 +24,7 @@ class CompleteLabelStyle(Style):
     text_color: pg.typing.ColorLike
     font: pg.font.Font
     
-    def apply(self, target: Label | None = None):
+    def apply(self, target: 'Label | None' = None):
         if target:
             target.update_style(self)
         else:
