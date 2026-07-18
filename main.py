@@ -21,6 +21,13 @@ container.add(StaticLabel([240, 20, 200, 50], "Other Hello"))
 button = Button([20, 100, 200, 50], "Click me", on_click=lambda: print("Clicked"))
 container.add(button)
 
+conditional_label = StaticLabel([240, 100, 200, 50], "Cond")
+conditional_label.add_conditional_style(
+    lambda label: len(label.text) > 5,
+    LabelStyle(background_color=(0, 255, 0), text_color=(0, 0, 0), font=pg.font.SysFont("Mono", 20))
+)
+container.add(conditional_label)
+
 running = True
 
 frame_counter = 0
@@ -46,10 +53,19 @@ while running:
         if len(label.text) < 10:
             label.set_text(label.text + "o")
             button.set_text(button.text + "o")
+        
+        conditional_label.set_text(conditional_label.text + "o")
+        if len(conditional_label.text) > 7:
+            conditional_label.set_text("Cond")
+        
         new_color = [0, 0, 0]
         new_color[changes] = 255
         label.update_style(LabelStyle(background_color=new_color))
-        button.update_hover_style(ButtonStyle(border=Border(5, new_color)))
+        button.conditional_styles.clear()
+        button.add_conditional_style(
+            lambda button: button.hovered,
+            ButtonStyle(border=Border(5, new_color))
+        )
 
     for event in pg.event.get():
         if event.type == pg.QUIT:

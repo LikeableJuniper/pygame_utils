@@ -45,23 +45,26 @@ class Button(GUIElement[ButtonStyle, CompleteButtonStyle]):
         self.text = text or ""
         super().__init__(rect, style, Button.default_style)
         self.on_click = on_click or (lambda: None)
-        self.idle_style = merge_styles(style, Button.default_style)
-        self.hover_style = merge_styles(hover_style, Button.default_hover_style)
         # even though the mouse position is checked every time update() is called, this variable is used to prevent unnecessary style updates and rerenders
         self.hovered = False
         self.being_clicked = False
+
+        self.add_conditional_style(
+            lambda button: button.hovered,
+            merge_styles(hover_style, Button.default_hover_style)
+        )
     
     def update(self, events: Iterable[pg.Event]):
         mouse_pos = Vector(pg.mouse.get_pos())
         top_left = Vector(self.rect[:2])
         width_height = Vector(self.rect[2:])
         in_rect = top_left < mouse_pos < top_left + width_height
-        if in_rect and (not self.hovered or self.style != self.hover_style):
+        if in_rect and (not self.hovered):
             self.hovered = True
-            self.update_style(self.hover_style)
+            self._rerender()
         elif not in_rect and self.hovered:
             self.hovered = False
-            self.update_style(self.idle_style)
+            self._rerender()
         
         if self.hovered:
             clicked = pg.mouse.get_pressed()[0]
@@ -79,10 +82,6 @@ class Button(GUIElement[ButtonStyle, CompleteButtonStyle]):
 
     def set_text(self, text: str):
         self.text = text
-        self._rerender()
-    
-    def update_hover_style(self, style: ButtonStyle | CompleteButtonStyle):
-        self.hover_style = merge_styles(style, self.hover_style)
         self._rerender()
     
     def _rerender(self):
