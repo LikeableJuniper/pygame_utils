@@ -45,6 +45,7 @@ while running:
         # runtime value and style changes
         if len(label.text) < 10:
             label.set_text(label.text + "o")
+            button.set_text(button.text + "o")
         new_color = [0, 0, 0]
         new_color[changes] = 255
         label.update_style(LabelStyle(background_color=new_color))

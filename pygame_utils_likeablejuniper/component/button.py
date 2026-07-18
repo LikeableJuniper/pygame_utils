@@ -38,9 +38,9 @@ class Button(GUIElement[ButtonStyle, CompleteButtonStyle]):
     default_style: CompleteButtonStyle = DEFAULT_BUTTON_STYLE
     default_hover_style: CompleteButtonStyle = DEFAULT_BUTTON_HOVER_STYLE
 
-    def __init__(self, rect: list[float], text: str, style: ButtonStyle | None = None, hover_style: ButtonStyle | None = None):
+    def __init__(self, rect: list[float], text: str | None = None, style: ButtonStyle | None = None, hover_style: ButtonStyle | None = None):
         # self.text assignment must be before super().__init__() because Button overrides _rerender() and uses self.text in it, which is called in GUIElement.__init__()
-        self.text = text
+        self.text = text or ""
         super().__init__(rect, style, Button.default_style)
         self.idle_style = merge_styles(style, Button.default_style)
         self.hover_style = merge_styles(hover_style, Button.default_hover_style)
@@ -62,14 +62,18 @@ class Button(GUIElement[ButtonStyle, CompleteButtonStyle]):
     def draw(self, screen: pg.Surface):
         super().draw(screen)
 
-        screen.blit(self.text_surface, self.text_rect)
+        if self.text:
+            screen.blit(self.text_surface, self.text_rect)
 
     def set_text(self, text: str):
         self.text = text
+        self._rerender()
     
     def _rerender(self):
         super()._rerender()
-        top_left = Vector(self.rect[:2])
-        width_height = Vector(self.rect[2:])
-        self.text_surface = self.style.font.render(self.text, True, self.style.text_color)
-        self.text_rect = self.text_surface.get_rect(center=(top_left + 0.5*width_height).components)
+
+        if self.text:
+            top_left = Vector(self.rect[:2])
+            width_height = Vector(self.rect[2:])
+            self.text_surface = self.style.font.render(self.text, True, self.style.text_color)
+            self.text_rect = self.text_surface.get_rect(center=(top_left + 0.5*width_height).components)
