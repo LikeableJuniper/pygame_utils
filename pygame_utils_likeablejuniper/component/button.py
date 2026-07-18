@@ -54,7 +54,7 @@ class Button(GUIElement[ButtonStyle, CompleteButtonStyle]):
         top_left = Vector(self.rect[:2])
         width_height = Vector(self.rect[2:])
         in_rect = top_left < mouse_pos < top_left + width_height
-        if in_rect and not self.hovered:
+        if in_rect and (not self.hovered or self.style != self.hover_style):
             self.hovered = True
             self.update_style(self.hover_style)
         elif not in_rect and self.hovered:
@@ -77,6 +77,10 @@ class Button(GUIElement[ButtonStyle, CompleteButtonStyle]):
 
     def set_text(self, text: str):
         self.text = text
+        self._rerender()
+    
+    def update_hover_style(self, style: ButtonStyle | CompleteButtonStyle):
+        self.hover_style = merge_styles(style, self.hover_style)
         self._rerender()
     
     def _rerender(self):

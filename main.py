@@ -49,6 +49,7 @@ while running:
         new_color = [0, 0, 0]
         new_color[changes] = 255
         label.update_style(LabelStyle(background_color=new_color))
+        button.update_hover_style(ButtonStyle(background_color=new_color))
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
