@@ -18,7 +18,7 @@ label = StaticLabel([20, 20, 200, 50], "Hello", custom_style)
 container.add(label)
 container.add(StaticLabel([240, 20, 200, 50], "Other Hello"))
 
-button = Button([20, 100, 200, 50], "Click me")
+button = Button([20, 100, 200, 50], "Click me", on_click=lambda: print("Clicked"))
 container.add(button)
 
 running = True

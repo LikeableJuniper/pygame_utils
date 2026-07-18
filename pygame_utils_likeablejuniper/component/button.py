@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Iterable
+from typing import Any, Callable, Iterable
 import pygame as pg
 from vectors_likeablejuniper import Vector
 
@@ -38,14 +38,16 @@ class Button(GUIElement[ButtonStyle, CompleteButtonStyle]):
     default_style: CompleteButtonStyle = DEFAULT_BUTTON_STYLE
     default_hover_style: CompleteButtonStyle = DEFAULT_BUTTON_HOVER_STYLE
 
-    def __init__(self, rect: list[float], text: str | None = None, style: ButtonStyle | None = None, hover_style: ButtonStyle | None = None):
+    def __init__(self, rect: list[float], text: str | None = None, on_click: Callable[..., Any] | None = None, style: ButtonStyle | None = None, hover_style: ButtonStyle | None = None):
         # self.text assignment must be before super().__init__() because Button overrides _rerender() and uses self.text in it, which is called in GUIElement.__init__()
         self.text = text or ""
         super().__init__(rect, style, Button.default_style)
+        self.on_click = on_click or (lambda: None)
         self.idle_style = merge_styles(style, Button.default_style)
         self.hover_style = merge_styles(hover_style, Button.default_hover_style)
         # even though the mouse position is checked every time update() is called, this variable is used to prevent unnecessary style updates and rerenders
         self.hovered = False
+        self.being_clicked = False
     
     def update(self, events: Iterable[pg.Event]):
         mouse_pos = Vector(pg.mouse.get_pos())
@@ -58,6 +60,14 @@ class Button(GUIElement[ButtonStyle, CompleteButtonStyle]):
         elif not in_rect and self.hovered:
             self.hovered = False
             self.update_style(self.idle_style)
+        
+        if self.hovered:
+            clicked = pg.mouse.get_pressed()[0]
+            if clicked and not self.being_clicked:
+                self.being_clicked = True
+                self.on_click()
+            elif not clicked and self.being_clicked:
+                self.being_clicked = False
 
     def draw(self, screen: pg.Surface):
         super().draw(screen)
