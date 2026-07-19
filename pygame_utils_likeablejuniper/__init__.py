@@ -8,5 +8,5 @@ from pygame_utils_likeablejuniper.core.container import Container, ContainerStyl
 from pygame_utils_likeablejuniper.component.label import Label, StaticLabel, LabelStyle
 from pygame_utils_likeablejuniper.component.button import Button, ButtonStyle
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __author__ = "LikeableJuniper"
