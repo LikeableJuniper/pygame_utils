@@ -10,6 +10,7 @@ class ConditionalStyle(Generic[E]):
     def __init__(self, condition: Callable[[E], bool], style: Style):
         self.condition = condition
         self.style = style
+        self.last_condition_result: bool | None = None
 
 S = TypeVar("S", bound=Style)
 C = TypeVar("C", bound=Style)
@@ -36,6 +37,16 @@ class GUIElement(Generic[S, C]):
             self._rerender()
         elif not in_rect and self.hovered:
             self.hovered = False
+            self._rerender()
+        
+        changed = False
+        for conditional_style in self.conditional_styles:
+            condition_result = conditional_style.condition(self)
+            if condition_result != conditional_style.last_condition_result:
+                conditional_style.last_condition_result = condition_result
+                changed = True
+        
+        if changed:
             self._rerender()
     
     def draw(self, screen: pg.Surface):

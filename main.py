@@ -26,6 +26,11 @@ conditional_label.add_conditional_style(
     lambda label: len(label.text) > 5,
     LabelStyle(background_color=(0, 255, 0), text_color=(0, 0, 0), font=pg.font.SysFont("Mono", 20))
 )
+counter = 0
+conditional_label.add_conditional_style(
+    lambda label: counter % 2 == 0,
+    LabelStyle(background_color=(0, 0, 255), text_color=(255, 255, 255), font=pg.font.SysFont("Mono", 20))
+)
 container.add(conditional_label)
 
 running = True
@@ -37,7 +42,7 @@ while running:
     screen.fill((100, 100, 100))
 
     container.draw(screen)
-    button.update(pg.event.get())
+    container.update(pg.event.get())
 
     pg.display.flip()
 
@@ -54,9 +59,10 @@ while running:
             label.set_text(label.text + "o")
             button.set_text(button.text + "o")
         
-        conditional_label.set_text(conditional_label.text + "o")
-        if len(conditional_label.text) > 7:
-            conditional_label.set_text("Cond")
+        #conditional_label.set_text(conditional_label.text + "o")
+        #if len(conditional_label.text) > 7:
+        #    conditional_label.set_text("Cond")
+        counter += 1
         
         new_color = [0, 0, 0]
         new_color[changes] = 255

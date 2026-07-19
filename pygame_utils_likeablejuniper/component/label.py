@@ -38,10 +38,6 @@ class Label(GUIElement[LabelStyle, CompleteLabelStyle]):
         # self.text assignment must be before super().__init__() because StaticLabel overrides _rerender() and uses self.text in it, which is called in GUIElement.__init__()
         self.text = text
         super().__init__(rect, style, Label.default_style)
-    
-    def update(self, events: Iterable[pg.Event]):
-        super().update(events)
-        raise NotImplementedError()
 
     def draw(self, screen: pg.Surface):
         super().draw(screen)
