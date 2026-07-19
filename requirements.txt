@@ -1,0 +1,2 @@
+vectors_likeablejuniper>=0.0.7
+pygame-ce>=2.5.7
