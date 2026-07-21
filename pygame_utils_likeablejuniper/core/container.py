@@ -34,8 +34,10 @@ DEFAULT_CONTAINER_STYLE = CompleteContainerStyle((0, 0, 0, 0), Border(0, (0, 0, 
 class Container(GUIElement):
     default_style: CompleteContainerStyle = DEFAULT_CONTAINER_STYLE
     def __init__(self, rect: list[float], layout: Layout | None = None, elements: list[GUIElement] | None = None, style: ContainerStyle | None = None):
-        super().__init__(rect, style, Container.default_style)
         self.layout = layout
+        if self.layout:
+            self.layout.set_rect(rect)
+        super().__init__(rect, style, Container.default_style)
         self.elements = elements or []
         self.style = merge_styles(style, Container.default_style)
     
@@ -57,5 +59,6 @@ class Container(GUIElement):
             self.elements.append(element)
             if self.layout:
                 self.layout.apply(self.elements)
+            self._rerender()
         else:
             raise TypeError("Can only add GUIElement to Container")

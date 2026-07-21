@@ -13,16 +13,16 @@ screen = pg.display.set_mode((800, 800))
 clock = pg.time.Clock()
 
 container_style = ContainerStyle(border=Border(5, (0, 255, 0)))
-container = Container([10, 10, 780, 780], layout=VerticalLayout([10, 10, 780, 780]), style=container_style)
+container = Container([10, 10, 780, 780], layout=VerticalLayout(), style=container_style)
 custom_style = LabelStyle(background_color=(255, 0, 0))
-label = StaticLabel([20, 20, 200, 50], "Hello", custom_style)
+label = StaticLabel([20, 20, 200, 100], "Hello", custom_style)
 container.add(label)
 container.add(StaticLabel([240, 20, 200, 50], "Other Hello"))
 
 button = Button([20, 100, 200, 50], "Click me", on_click=lambda: print("Clicked"))
 container.add(button)
 
-conditional_label = StaticLabel([240, 100, 200, 50], "Cond")
+conditional_label = StaticLabel([240, 100, 300, 50], "Conditional")
 conditional_label.add_conditional_style(
     lambda label: len(label.text) > 5,
     LabelStyle(background_color=(0, 255, 0), text_color=(0, 0, 0), font=pg.font.SysFont("Mono", 20))
