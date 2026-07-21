@@ -4,7 +4,7 @@ from pygame_utils_likeablejuniper import LabelStyle, StaticLabel
 from pygame_utils_likeablejuniper import ContainerStyle
 from pygame_utils_likeablejuniper import Border
 from pygame_utils_likeablejuniper import Button, ButtonStyle
-from pygame_utils_likeablejuniper.layout.layout import HorizontalLayout, LayoutParams, VerticalLayout
+from pygame_utils_likeablejuniper.layout.layout import VerticalLayout
 
 
 pg.init()

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Iterable, cast
+from typing import Iterable
 import pygame as pg
 
 from pygame_utils_likeablejuniper.core.element import GUIElement

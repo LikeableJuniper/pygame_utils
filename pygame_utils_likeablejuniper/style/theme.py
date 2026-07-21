@@ -1,5 +1,4 @@
 from pygame_utils_likeablejuniper.style.style import Style
-import pygame as pg
 
 class Theme:
     def __init__(self, styles: list[Style] | None = None):

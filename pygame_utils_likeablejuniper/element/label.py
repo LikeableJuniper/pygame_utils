@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Iterable, cast
 from vectors_likeablejuniper import Vector
 import pygame as pg
 
