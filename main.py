@@ -4,6 +4,7 @@ from pygame_utils_likeablejuniper import LabelStyle, StaticLabel
 from pygame_utils_likeablejuniper import ContainerStyle
 from pygame_utils_likeablejuniper import Border
 from pygame_utils_likeablejuniper import Button, ButtonStyle
+from pygame_utils_likeablejuniper.layout.layout import HorizontalLayout, LayoutParams, VerticalLayout
 
 
 pg.init()
@@ -12,7 +13,7 @@ screen = pg.display.set_mode((800, 800))
 clock = pg.time.Clock()
 
 container_style = ContainerStyle(border=Border(5, (0, 255, 0)))
-container = Container([10, 10, 780, 780], style=container_style)
+container = Container([10, 10, 780, 780], layout=VerticalLayout([10, 10, 780, 780]), style=container_style)
 custom_style = LabelStyle(background_color=(255, 0, 0))
 label = StaticLabel([20, 20, 200, 50], "Hello", custom_style)
 container.add(label)
