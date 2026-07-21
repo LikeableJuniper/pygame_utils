@@ -8,3 +8,5 @@
     Grids can be made with: ContainerVLayout(ContainerHLayout, ContainerHLayout, ...)
 
 - Text Input
+
+- Do something with visible and enabled in GUIElement
