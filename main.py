@@ -4,7 +4,9 @@ from pygame_utils_likeablejuniper import LabelStyle, StaticLabel
 from pygame_utils_likeablejuniper import ContainerStyle
 from pygame_utils_likeablejuniper import Border
 from pygame_utils_likeablejuniper import Button, ButtonStyle
-from pygame_utils_likeablejuniper import VerticalLayout
+from pygame_utils_likeablejuniper import GridLayout, LayoutParams
+
+from vectors_likeablejuniper import Vector
 
 
 pg.init()
@@ -13,7 +15,7 @@ screen = pg.display.set_mode((800, 800))
 clock = pg.time.Clock()
 
 container_style = ContainerStyle(border=Border(5, (0, 255, 0)))
-container = Container([10, 10, 780, 780], layout=VerticalLayout(), style=container_style)
+container = Container([10, 10, 780, 780], layout=GridLayout(LayoutParams(gap=Vector(20, 70))), style=container_style)
 custom_style = LabelStyle(background_color=(255, 0, 0))
 label = StaticLabel([20, 20, 200, 100], "Hello", custom_style)
 container.add(label)
@@ -33,6 +35,9 @@ conditional_label.add_conditional_style(
     LabelStyle(background_color=(0, 0, 255), text_color=(255, 255, 255), font=pg.font.SysFont("Mono", 20))
 )
 container.add(conditional_label)
+
+label2 = StaticLabel([0, 0, 200, 50], "Label 2")
+container.add(label2)
 
 running = True
 
@@ -64,6 +69,9 @@ while running:
         #if len(conditional_label.text) > 7:
         #    conditional_label.set_text("Cond")
         counter += 1
+
+        if counter % 5 == 0:
+            container.add(StaticLabel([0, 0, 200, 50], "New Label"))
         
         new_color = [0, 0, 0]
         new_color[changes] = 255
