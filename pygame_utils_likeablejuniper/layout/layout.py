@@ -4,10 +4,16 @@ from vectors_likeablejuniper import Vector
 
 
 class LayoutParams:
-    def __init__(self, gap: int = 0):
-        self.gap = gap
+    """
+    hgap: the amount of space between elements horizontally, in pixels
+    vgap: the amount of space between elements vertically, in pixels
+    direction: when using GridLayout, whether the layout should first fill along the x axis (0) or y axis (1)
+    """
+    def __init__(self, hgap: int = 0, vgap: int = 0, direction: int = 0):
+        self.hgap = hgap
+        self.vgap = vgap
 
-DEFAULT_LAYOUT_PARAMS = LayoutParams(gap=20)
+DEFAULT_LAYOUT_PARAMS = LayoutParams(hgap=20, vgap=20, direction=0)
 
 class Layout:
     def __init__(self, layout_params: LayoutParams | None = None):
@@ -51,3 +57,7 @@ class VerticalLayout(LinearLayout):
 class HorizontalLayout(LinearLayout):
     def __init__(self, layout_params: LayoutParams | None = None):
         super().__init__(0, layout_params)
+
+class GridLayout(Layout):
+    def __init__(self, layout_params: LayoutParams | None = None)
+        super().__init__(layout_params)
