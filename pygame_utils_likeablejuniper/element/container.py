@@ -61,7 +61,12 @@ class Container(GUIElement):
         else:
             raise TypeError("Can only add GUIElement to Container")
 
-    def update_layout_params(self, layout_params: LayoutParams):
+    def set_rect(self, rect: list[float]):
+        if self.layout:
+            self.layout.set_rect(rect)
+        super().set_rect(rect)
+
+    def set_layout_params(self, layout_params: LayoutParams):
         if self.layout:
             self.layout.layout_params = layout_params
             self._rerender()

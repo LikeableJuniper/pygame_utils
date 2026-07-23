@@ -41,9 +41,10 @@ class LinearLayout(Layout):
 
         shift = 0
         for element in elements:
-            element.rect[self.direction] = starting_coords + shift
-            element.rect[1 - self.direction] = self.center[1 - self.direction] - element.rect[(1 - self.direction) + 2] / 2
-            element._rerender()
+            new_pos = [0.0, 0.0]
+            new_pos[self.direction] = starting_coords + shift
+            new_pos[1 - self.direction] = self.center[1 - self.direction] - element.rect[(1 - self.direction) + 2] / 2
+            element.set_rect(new_pos + element.rect[2:])
             shift += element.rect[self.direction + 2] + self.layout_params.gap[self.direction]
 
 class VerticalLayout(LinearLayout):
@@ -108,8 +109,9 @@ class GridLayout(Layout):
             starting_axis_coords = self.center[self.layout_params.direction] - 0.5 * (sum([element.rect[2 + self.layout_params.direction] for element in row]) + self.layout_params.gap[self.layout_params.direction] * (len(row) - 1))
 
             for element in row:
-                element.rect[self.layout_params.direction] = starting_axis_coords
-                element.rect[1 - self.layout_params.direction] = starting_cross_axis_coords + 0.5 * max_cross_axis_size[row_index] - 0.5 * element.rect[3 - self.layout_params.direction]
-                element._rerender()
+                new_pos = [0.0, 0.0]
+                new_pos[self.layout_params.direction] = starting_axis_coords
+                new_pos[1 - self.layout_params.direction] = starting_cross_axis_coords + 0.5 * max_cross_axis_size[row_index] - 0.5 * element.rect[3 - self.layout_params.direction]
+                element.set_rect(new_pos + element.rect[:2])
                 starting_axis_coords += element.rect[2 + self.layout_params.direction] + self.layout_params.gap[self.layout_params.direction]
             starting_cross_axis_coords += max_cross_axis_size[row_index] + self.layout_params.gap[1 - self.layout_params.direction]

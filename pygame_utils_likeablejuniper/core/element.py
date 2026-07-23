@@ -61,6 +61,10 @@ class GUIElement(Generic[S, C]):
     def add_conditional_style(self, condition: Callable[[Self], bool], style: S | C):
         self.conditional_styles.append(ConditionalStyle(condition, style))
         self._rerender()
+
+    def set_rect(self, rect: list[float]):
+        self.rect = rect
+        self._rerender()
     
     def _rerender(self):
         """
