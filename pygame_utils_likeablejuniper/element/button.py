@@ -33,8 +33,8 @@ class CompleteButtonStyle(Style):
         else:
             Button.default_style = self
 
-DEFAULT_BUTTON_STYLE = CompleteButtonStyle(background_color=(161, 253, 255), border=Border(0, (0, 0, 0)), text_color=(0, 0, 0), font=pg.font.SysFont("Mono", 20))
-DEFAULT_BUTTON_HOVER_STYLE = CompleteButtonStyle(background_color=(82, 168, 191), border=Border(0, (0, 0, 0)), text_color=(0, 0, 0), font=pg.font.SysFont("Mono", 20))
+DEFAULT_BUTTON_STYLE = CompleteButtonStyle(background_color=(255, 255, 200), border=Border(0, (0, 0, 0)), text_color=(0, 0, 0), font=pg.font.SysFont("Mono", 20))
+DEFAULT_BUTTON_HOVER_STYLE = CompleteButtonStyle(background_color=(181, 181, 130), border=Border(0, (0, 0, 0)), text_color=(0, 0, 0), font=pg.font.SysFont("Mono", 20))
 
 class Button(GUIElement[ButtonStyle, CompleteButtonStyle]):
     default_style: CompleteButtonStyle = DEFAULT_BUTTON_STYLE
