@@ -3,7 +3,7 @@ from typing import Iterable
 import pygame as pg
 
 from pygame_utils_likeablejuniper.core.element import GUIElement
-from pygame_utils_likeablejuniper.layout.layout import Layout
+from pygame_utils_likeablejuniper.layout.layout import Layout, LayoutParams
 from pygame_utils_likeablejuniper.style.style import Border, Style, merge_styles
 
 
@@ -37,8 +37,8 @@ class Container(GUIElement):
         self.layout = layout
         if self.layout:
             self.layout.set_rect(rect)
-        super().__init__(rect, style, Container.default_style)
         self.elements = elements or []
+        super().__init__(rect, style, Container.default_style)
         self.style = merge_styles(style, Container.default_style)
     
     def update(self, events: Iterable[pg.Event]):
@@ -57,8 +57,16 @@ class Container(GUIElement):
     def add(self, element: GUIElement):
         if isinstance(element, GUIElement):
             self.elements.append(element)
-            if self.layout:
-                self.layout.apply(self.elements)
             self._rerender()
         else:
             raise TypeError("Can only add GUIElement to Container")
+
+    def update_layout_params(self, layout_params: LayoutParams):
+        if self.layout:
+            self.layout.layout_params = layout_params
+            self._rerender()
+
+    def _rerender(self):
+        super()._rerender()
+        if self.layout:
+            self.layout.apply(self.elements)

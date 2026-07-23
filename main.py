@@ -71,8 +71,9 @@ while running:
         #    conditional_label.set_text("Cond")
         counter += 1
 
-        if counter % 5 == 0:
-            container.add(StaticLabel([0, 0, 200, random.randint(25, 200)], f"New Label {int(counter / 5)}"))
+        #if counter % 5 == 0:
+            #container.add(StaticLabel([0, 0, 200, random.randint(25, 200)], f"New Label {int(counter / 5)}"))
+        container.update_layout_params(LayoutParams(gap=0 if counter % 2 == 0 else 20))
         
         new_color = [0, 0, 0]
         new_color[changes] = 255
