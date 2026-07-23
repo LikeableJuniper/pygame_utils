@@ -7,6 +7,7 @@ from pygame_utils_likeablejuniper import Button, ButtonStyle
 from pygame_utils_likeablejuniper import GridLayout, LayoutParams
 
 from vectors_likeablejuniper import Vector
+import random
 
 
 pg.init()
@@ -71,7 +72,7 @@ while running:
         counter += 1
 
         if counter % 5 == 0:
-            container.add(StaticLabel([0, 0, 200, 50], "New Label"))
+            container.add(StaticLabel([0, 0, 200, random.randint(25, 200)], f"New Label {int(counter / 5)}"))
         
         new_color = [0, 0, 0]
         new_color[changes] = 255
