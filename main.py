@@ -28,12 +28,12 @@ container.add(button)
 conditional_label = StaticLabel([240, 100, 300, 50], "Conditional")
 conditional_label.add_conditional_style(
     lambda label: len(label.text) > 5,
-    LabelStyle(background_color=(0, 255, 0), text_color=(0, 0, 0), font=pg.font.SysFont("Mono", 20))
+    LabelStyle(background_color=(0, 255, 0), text_color=(0, 0, 0))
 )
 counter = 0
 conditional_label.add_conditional_style(
     lambda label: counter % 2 == 0,
-    LabelStyle(background_color=(0, 0, 255), text_color=(255, 255, 255), font=pg.font.SysFont("Mono", 20))
+    LabelStyle(background_color=(0, 0, 255), text_color=(255, 255, 255))
 )
 container.add(conditional_label)
 
