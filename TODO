@@ -2,10 +2,10 @@
     submit list of ConditionalFormatting objects, first one evaluating to true is applied
     allow checking for hovered and other builtin conditions, calculated in GUIElement
 
-- Layouting
+- DONE - Layouting
     Containers can have Layouts assigned (or None)
     Layouts override the child elements rect[:2], leaving width/height intact
-    Grids can be made with: ContainerVLayout(ContainerHLayout, ContainerHLayout, ...)
+    GridLayout implementation given
 
 - Text Input
 
