@@ -112,6 +112,6 @@ class GridLayout(Layout):
                 new_pos = [0.0, 0.0]
                 new_pos[self.layout_params.direction] = starting_axis_coords
                 new_pos[1 - self.layout_params.direction] = starting_cross_axis_coords + 0.5 * max_cross_axis_size[row_index] - 0.5 * element.rect[3 - self.layout_params.direction]
-                element.set_rect(new_pos + element.rect[:2])
+                element.set_rect(new_pos + element.rect[2:])
                 starting_axis_coords += element.rect[2 + self.layout_params.direction] + self.layout_params.gap[self.layout_params.direction]
             starting_cross_axis_coords += max_cross_axis_size[row_index] + self.layout_params.gap[1 - self.layout_params.direction]
