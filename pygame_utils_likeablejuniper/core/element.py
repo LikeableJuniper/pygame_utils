@@ -55,7 +55,6 @@ class GUIElement(Generic[S, C]):
     
     def update_style(self, style: S | C):
         self.unconditional_style = merge_styles(style, self.unconditional_style)
-        self.conditional_styles.clear()
         self._rerender()
     
     def add_conditional_style(self, condition: Callable[[Self], bool], style: S | C):
