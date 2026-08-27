@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="pygame_utils_likeablejuniper",
-    version="0.3.0",
+    version="0.4.0",
     description="Package which provides some basic GUI elements for pygame",
     long_description=open("README.md", "r").read(),
     url="https://github.com/LikeableJuniper/pygame_utils",
