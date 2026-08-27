@@ -41,11 +41,11 @@ class Container(GUIElement):
         super().__init__(rect, style, Container.default_style)
         self.style = merge_styles(style, Container.default_style)
     
-    def update(self, events: Iterable[pg.Event]):
-        super().update(events)
+    def update(self, events: Iterable[pg.Event], dt: float):
+        super().update(events, dt)
         for element in self.elements:
             if element.enabled:
-                element.update(events)
+                element.update(events, dt)
     
     def draw(self, screen: pg.Surface):
         super().draw(screen)

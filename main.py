@@ -48,11 +48,9 @@ while running:
     screen.fill((100, 100, 100))
 
     container.draw(screen)
-    container.update(pg.event.get())
+    container.update(pg.event.get(), clock.tick(60))
 
     pg.display.flip()
-
-    clock.tick(60)
 
     frame_counter += 1
 

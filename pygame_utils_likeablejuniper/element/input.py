@@ -48,8 +48,8 @@ class Input(GUIElement[InputStyle, CompleteInputStyle]):
         self.cursor = len(self.text)
         self.add_conditional_style(lambda input: input.active, Input.default_active_style)
     
-    def update(self, events: Iterable[pg.Event]):
-        super().update(events)
+    def update(self, events: Iterable[pg.Event], dt: float):
+        super().update(events, dt)
         
         clicked = pg.mouse.get_pressed()[0]
         if self.hovered and clicked and not self.active:

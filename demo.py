@@ -10,6 +10,7 @@ from pygame_utils_likeablejuniper import Input
 pg.init()
 pg.font.init()
 screen = pg.display.set_mode((800, 800))
+clock = pg.time.Clock()
 
 root_style = ContainerStyle(border=Border(5, (255, 0, 0)))
 row_style = ContainerStyle(border=Border(5, (0, 255, 0)))
@@ -37,7 +38,7 @@ while running:
 
     events = pg.event.get()
 
-    root.update(events)
+    root.update(events, clock.tick(60))
     
     for event in events:
         if event.type == pg.QUIT:

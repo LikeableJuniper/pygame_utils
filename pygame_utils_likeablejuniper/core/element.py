@@ -27,7 +27,7 @@ class GUIElement(Generic[S, C]):
         # even though the mouse position is checked every time update() is called, this variable is used to prevent unnecessary style updates and rerenders
         self.hovered = False
     
-    def update(self, events: Iterable[pg.Event]):
+    def update(self, events: Iterable[pg.Event], dt: float):
         mouse_pos = Vector(pg.mouse.get_pos())
         top_left = Vector(self.rect[:2])
         width_height = Vector(self.rect[2:])

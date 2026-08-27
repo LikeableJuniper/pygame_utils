@@ -52,8 +52,8 @@ class Button(GUIElement[ButtonStyle, CompleteButtonStyle]):
             merge_styles(hover_style, Button.default_hover_style)
         )
     
-    def update(self, events: Iterable[pg.Event]):
-        super().update(events)
+    def update(self, events: Iterable[pg.Event], dt: float):
+        super().update(events, dt)
         if self.hovered:
             clicked = pg.mouse.get_pressed()[0]
             if clicked and not self.being_clicked:
