@@ -7,7 +7,7 @@
     Layouts override the child elements rect[:2], leaving width/height intact
     GridLayout implementation given
 
-- Text Input / dt in update()
+- Text Input / dt in update() or separate method
 
 - Do something with visible and enabled in GUIElement
 
