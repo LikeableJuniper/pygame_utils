@@ -60,7 +60,7 @@ class StaticLabel(Label):
         # no need to call self._rerender() here, as it is already called in the super().__init__() call in GUIElement.__init__()
     
     def draw(self, screen: pg.Surface):
-        pg.draw.rect(screen, self.style.background_color, self.rect)
+        GUIElement.draw(self, screen)
         screen.blit(self.text_surface, self.text_rect)
     
     def set_text(self, text: str):

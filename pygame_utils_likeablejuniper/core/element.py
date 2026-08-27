@@ -79,9 +79,7 @@ class GUIElement(Generic[S, C]):
                 self.style = merge_styles(conditional_style.style, self.style)
 
         if self.__has_background():
-            self.background_surface = pg.Surface(self.rect[2:])
-            if len(self.style.background_color) >= 4: # pyright: ignore[reportAttributeAccessIssue]
-                self.background_surface.set_alpha(self.style.background_color[3]) # pyright: ignore[reportAttributeAccessIssue]
+            self.background_surface = pg.Surface(self.rect[2:], pg.SRCALPHA)
             self.background_surface.fill(self.style.background_color) # pyright: ignore[reportAttributeAccessIssue]
 
     def __draw_background(self, screen: pg.Surface):

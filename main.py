@@ -7,7 +7,6 @@ from pygame_utils_likeablejuniper import Button, ButtonStyle
 from pygame_utils_likeablejuniper import GridLayout, LayoutParams
 
 from vectors_likeablejuniper import Vector
-import random
 
 
 pg.init()
