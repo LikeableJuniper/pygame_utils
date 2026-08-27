@@ -41,10 +41,11 @@ class Input(GUIElement[InputStyle, CompleteInputStyle]):
     default_active_style: CompleteInputStyle = DEFAULT_INPUT_ACTIVE_STYLE
 
     def __init__(self, rect: list[float], text: str | None = None, style: InputStyle | None = None):
-        # self.text assignment must be before super().__init__() because Button overrides _rerender() and uses self.text in it, which is called in GUIElement.__init__()
+        # self.text assignment must be before super().__init__() because Input overrides _rerender() and uses self.text in it, which is called in GUIElement.__init__()
         self.text = text or ""
         super().__init__(rect, style, Input.default_style)
         self.active = False
+        self.cursor = len(self.text)
         self.add_conditional_style(lambda input: input.active, Input.default_active_style)
     
     def update(self, events: Iterable[pg.Event]):
@@ -63,13 +64,20 @@ class Input(GUIElement[InputStyle, CompleteInputStyle]):
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_BACKSPACE:
                         remove_count += 1
+                    elif event.key == pg.K_RIGHT:
+                        self.cursor = min(self.cursor + 1, len(self.text))
+                    elif event.key == pg.K_LEFT:
+                        self.cursor = max(self.cursor - 1, 0)
                     else:
                         add_str += event.unicode
 
             if add_str or remove_count:
                 if remove_count:
-                    self.text = self.text[:-remove_count]
-                self.text += add_str
+                    remove_count = min(remove_count, self.cursor)
+                    self.text = self.text[:self.cursor - remove_count] + self.text[self.cursor:]
+                    self.cursor -= remove_count
+                self.text = self.text[:self.cursor] + add_str + self.text[self.cursor:]
+                self.cursor += len(add_str)
                 self._rerender()
 
     def draw(self, screen: pg.Surface):
