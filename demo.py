@@ -6,6 +6,7 @@ from pygame_utils_likeablejuniper import Container, ContainerStyle, VerticalLayo
 from pygame_utils_likeablejuniper import StaticLabel, LabelStyle
 from pygame_utils_likeablejuniper import Button
 from pygame_utils_likeablejuniper import Input
+from pygame_utils_likeablejuniper.element.input import InputStyle
 
 pg.init()
 pg.font.init()
@@ -27,7 +28,7 @@ first_row.add(Button([0, 0, 200, 50], "Hello Button"))
 root.add(first_row)
 
 second_row = Container([0, 0, 800, 100], HorizontalLayout(), style=row_style)
-second_row.add(Input([0, 0, 200, 50], "Input"))
+second_row.add(Input([0, 0, 200, 50], "Input", InputStyle(font=pg.font.SysFont("Mono", 50))))
 root.add(second_row)
 
 running = True
