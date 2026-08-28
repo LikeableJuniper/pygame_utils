@@ -28,7 +28,7 @@ first_row.add(Button([0, 0, 200, 50], "Hello Button"))
 root.add(first_row)
 
 second_row = Container([0, 0, 800, 100], HorizontalLayout(), style=row_style)
-second_row.add(Input([0, 0, 200, 50], "Input", InputStyle(font=pg.font.SysFont("Mono", 50))))
+second_row.add(Input([0, 0, 200, 50], "Input"))
 root.add(second_row)
 
 running = True
