@@ -132,7 +132,6 @@ class Input(GUIElement[InputStyle, CompleteInputStyle]):
 
         if self.cursor_blink_visible:
             cursor_start = self.style.font.size(self.text[:self.cursor])[0]
-            print(self.style.font.get_linesize())
             self.cursor_rect = [self.text_rect.left + cursor_start, self.text_rect.top, self.style.font.get_linesize()/23, self.text_rect.height]
 
     def __render_text(self, text: str):
