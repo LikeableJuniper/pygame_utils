@@ -28,16 +28,18 @@ class GUIElement(Generic[S, C]):
         self.hovered = False
     
     def update(self, events: Iterable[pg.Event], dt: float):
+        rerender_required = False
+
         mouse_pos = Vector(pg.mouse.get_pos())
         top_left = Vector(self.rect[:2])
         width_height = Vector(self.rect[2:])
         in_rect = top_left < mouse_pos < top_left + width_height
         if in_rect and (not self.hovered):
             self.hovered = True
-            self._rerender()
+            rerender_required = True
         elif not in_rect and self.hovered:
             self.hovered = False
-            self._rerender()
+            rerender_required = True
         
         changed = False
         for conditional_style in self.conditional_styles:
@@ -47,6 +49,9 @@ class GUIElement(Generic[S, C]):
                 changed = True
         
         if changed:
+            rerender_required = True
+
+        if rerender_required:
             self._rerender()
     
     def draw(self, screen: pg.Surface):
