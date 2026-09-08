@@ -21,7 +21,6 @@ class GUIElement(Generic[S, C]):
         self.unconditional_style = self.style
         self.conditional_styles: list[ConditionalStyle] = []
         self._rerender()
-        self.enabled = True
         self.visible = True
 
         # even though the mouse position is checked every time update() is called, this variable is used to prevent unnecessary style updates and rerenders

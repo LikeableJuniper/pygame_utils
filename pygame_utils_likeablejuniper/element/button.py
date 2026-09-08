@@ -46,6 +46,7 @@ class Button(GUIElement[ButtonStyle, CompleteButtonStyle]):
         super().__init__(rect, style, Button.default_style)
         self.on_click = on_click or (lambda: None)
         self.being_clicked = False
+        self.enabled = True
 
         self.add_conditional_style(
             lambda button: button.hovered,
@@ -58,7 +59,8 @@ class Button(GUIElement[ButtonStyle, CompleteButtonStyle]):
             clicked = pg.mouse.get_pressed()[0]
             if clicked and not self.being_clicked:
                 self.being_clicked = True
-                self.on_click()
+                if self.enabled:
+                    self.on_click()
             elif not clicked and self.being_clicked:
                 self.being_clicked = False
 
