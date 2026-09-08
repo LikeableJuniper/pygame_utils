@@ -48,7 +48,8 @@ while running:
     screen.fill((100, 100, 100))
 
     container.draw(screen)
-    container.update(pg.event.get(), clock.tick(60))
+    events = pg.event.get()
+    container.update(events, clock.tick(60))
 
     pg.display.flip()
 
@@ -81,7 +82,7 @@ while running:
             ButtonStyle(border=Border(5, new_color))
         )
 
-    for event in pg.event.get():
+    for event in events:
         if event.type == pg.QUIT:
             running = False
 

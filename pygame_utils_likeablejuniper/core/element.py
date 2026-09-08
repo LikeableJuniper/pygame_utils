@@ -52,10 +52,17 @@ class GUIElement(Generic[S, C]):
 
         if rerender_required:
             self._rerender()
-    
+
     def draw(self, screen: pg.Surface):
+        if not self.visible:
+            return
+        
         self.__draw_background(screen)
         self.__draw_border(screen)
+        self._draw(screen)
+
+    def _draw(self, screen: pg.Surface):
+        pass
     
     def update_style(self, style: S | C):
         self.unconditional_style = merge_styles(style, self.unconditional_style)

@@ -108,9 +108,7 @@ class Input(GUIElement[InputStyle, CompleteInputStyle]):
         if rerender_required:
             self._rerender()
 
-    def draw(self, screen: pg.Surface):
-        super().draw(screen)
-
+    def _draw(self, screen: pg.Surface):
         if self.text:
             screen.blit(self.text_surface, self.text_rect)
 

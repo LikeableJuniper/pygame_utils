@@ -38,9 +38,7 @@ class Label(GUIElement[LabelStyle, CompleteLabelStyle]):
         self.text = text
         super().__init__(rect, style, Label.default_style)
 
-    def draw(self, screen: pg.Surface):
-        super().draw(screen)
-
+    def _draw(self, screen: pg.Surface):
         text_surface = self.style.font.render(self.text, True, self.style.text_color)
         topLeft = Vector(self.rect[:2])
         widthHeight = Vector(self.rect[2:])
@@ -59,8 +57,7 @@ class StaticLabel(Label):
         super().__init__(rect, text, style)
         # no need to call self._rerender() here, as it is already called in the super().__init__() call in GUIElement.__init__()
     
-    def draw(self, screen: pg.Surface):
-        GUIElement.draw(self, screen)
+    def _draw(self, screen: pg.Surface):
         screen.blit(self.text_surface, self.text_rect)
     
     def set_text(self, text: str):

@@ -64,9 +64,7 @@ class Button(GUIElement[ButtonStyle, CompleteButtonStyle]):
             elif not clicked and self.being_clicked:
                 self.being_clicked = False
 
-    def draw(self, screen: pg.Surface):
-        super().draw(screen)
-
+    def _draw(self, screen: pg.Surface):
         if self.text:
             screen.blit(self.text_surface, self.text_rect)
 

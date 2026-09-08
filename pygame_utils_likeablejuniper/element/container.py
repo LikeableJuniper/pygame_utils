@@ -44,15 +44,11 @@ class Container(GUIElement):
     def update(self, events: Iterable[pg.Event], dt: float):
         super().update(events, dt)
         for element in self.elements:
-            if element.enabled:
-                element.update(events, dt)
+            element.update(events, dt)
     
-    def draw(self, screen: pg.Surface):
-        super().draw(screen)
-
+    def _draw(self, screen: pg.Surface):
         for element in self.elements:
-            if element.visible:
-                element.draw(screen)
+            element.draw(screen)
     
     def add(self, element: GUIElement):
         if isinstance(element, GUIElement):
