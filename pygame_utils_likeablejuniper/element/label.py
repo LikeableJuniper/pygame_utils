@@ -3,7 +3,7 @@ from vectors_likeablejuniper import Vector
 import pygame as pg
 
 from pygame_utils_likeablejuniper.core.element import GUIElement
-from pygame_utils_likeablejuniper.style.style import Style, merge_styles
+from pygame_utils_likeablejuniper.style.style import Border, Style
 
 @dataclass
 class LabelStyle(Style):
@@ -11,6 +11,7 @@ class LabelStyle(Style):
     A style property with value None indicates that it should just be the default value.
     """
     background_color: pg.typing.ColorLike | None = None
+    border: Border | None = None
     text_color: pg.typing.ColorLike | None = None
     font: pg.font.Font | None = None
 
@@ -20,6 +21,7 @@ class CompleteLabelStyle(Style):
     Always needs all fields to be non-None. Is used for defining fallback values and the result of merge_styles()
     """
     background_color: pg.typing.ColorLike
+    border: Border
     text_color: pg.typing.ColorLike
     font: pg.font.Font
     
@@ -29,7 +31,7 @@ class CompleteLabelStyle(Style):
         else:
             Label.default_style = self
 
-DEFAULT_LABEL_STYLE = CompleteLabelStyle(background_color=(255, 255, 200), text_color=(0, 0, 0), font=pg.font.SysFont("Mono", 20))
+DEFAULT_LABEL_STYLE = CompleteLabelStyle(background_color=(255, 255, 200), border=Border(0, (0, 0, 0)), text_color=(0, 0, 0), font=pg.font.SysFont("Mono", 20))
 
 class Label(GUIElement[LabelStyle, CompleteLabelStyle]):
     default_style: CompleteLabelStyle = DEFAULT_LABEL_STYLE

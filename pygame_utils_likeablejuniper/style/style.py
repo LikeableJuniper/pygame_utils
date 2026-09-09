@@ -16,12 +16,6 @@ class Border:
     border_width: int
     border_color: pg.typing.ColorLike
 
-    def draw(self, screen: pg.Surface, rect: list[float]):
-        if self.border_width == 0:
-            return
-        
-        pg.draw.rect(screen, self.border_color, rect, self.border_width)
-
 C = TypeVar("C", bound=Style)
 
 def merge_styles(preferred: Style | None, base: C) -> C:

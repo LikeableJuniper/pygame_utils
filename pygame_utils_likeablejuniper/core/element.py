@@ -92,16 +92,22 @@ class GUIElement(Generic[S, C]):
             self.background_surface = pg.Surface(self.rect[2:], pg.SRCALPHA)
             self.background_surface.fill(self.style.background_color) # pyright: ignore[reportAttributeAccessIssue]
 
+        if self.__has_border():
+            self.border_surface = pg.Surface(self.rect[2:], pg.SRCALPHA)
+            pg.draw.rect(self.border_surface, self.style.border.border_color, [0, 0] + self.rect[2:], self.style.border.border_width) # pyright: ignore[reportAttributeAccessIssue]
+
     def __draw_background(self, screen: pg.Surface):
         if self.__has_background():
             screen.blit(self.background_surface, self.rect[:2])
     
     def __draw_border(self, screen: pg.Surface):
         if self.__has_border():
-            self.style.border.draw(screen, self.rect) # pyright: ignore[reportAttributeAccessIssue]
+            screen.blit(self.border_surface, self.rect[:2])
     
     def __has_background(self):
         return hasattr(self.style, "background_color")
 
     def __has_border(self):
-        return hasattr(self.style, "border")
+        return hasattr(self.style, "border") \
+            and getattr(self.style, "border", None) is not None \
+            and self.style.border.border_width != 0 # pyright: ignore[reportAttributeAccessIssue]
